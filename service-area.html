@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Mobile notary service area — Kevin Feliciano serves Fremont, Newark, Union City, Hayward, Milpitas, San Jose, Sunnyvale, Santa Clara, Castro Valley, San Leandro, Sunol, and San Lorenzo within 15 miles of Fremont City Hall."/>
+  <title>Service Area | Feliciano Mobile Notary</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="icon" type="image/png" href="images/favicon-32.png"/>
+  <style>
+    .map-wrap {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-md);
+      aspect-ratio: 16/9;
+      min-height: 420px;
+    }
+    .map-wrap iframe { width: 100%; height: 100%; display: block; border: none; }
+    .city-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 12px;
+      margin-top: 24px;
+    }
+    .city-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--navy);
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .city-card:hover { box-shadow: var(--shadow-sm); transform: translateY(-1px); }
+    .city-pin {
+      width: 8px; height: 8px;
+      background: var(--navy);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+  </style>
+<!-- Built: 2026-06-03 -->
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand">
+      <svg class="logo-mark" width="38" height="38" viewBox="-43 -58 86 82">
+        <circle cx="0" cy="0" r="40" fill="none" stroke="white" stroke-width="1"/>
+        <g fill="white"><circle cx="0" cy="-36" r="1.3"/><circle cx="9.3" cy="-34.8" r="1.1"/><circle cx="18" cy="-31.2" r="1.1"/><circle cx="25.5" cy="-25.5" r="1.1"/><circle cx="31.2" cy="-18" r="1.1"/><circle cx="34.8" cy="-9.3" r="1.1"/><circle cx="36" cy="0" r="1.3"/><circle cx="34.8" cy="9.3" r="1.1"/><circle cx="31.2" cy="18" r="1.1"/><circle cx="25.5" cy="25.5" r="1.1"/><circle cx="18" cy="31.2" r="1.1"/><circle cx="9.3" cy="34.8" r="1.1"/><circle cx="0" cy="36" r="1.3"/><circle cx="-9.3" cy="34.8" r="1.1"/><circle cx="-18" cy="31.2" r="1.1"/><circle cx="-25.5" cy="25.5" r="1.1"/><circle cx="-31.2" cy="18" r="1.1"/><circle cx="-34.8" cy="9.3" r="1.1"/><circle cx="-36" cy="0" r="1.3"/><circle cx="-34.8" cy="-9.3" r="1.1"/><circle cx="-31.2" cy="-18" r="1.1"/><circle cx="-25.5" cy="-25.5" r="1.1"/><circle cx="-18" cy="-31.2" r="1.1"/><circle cx="-9.3" cy="-34.8" r="1.1"/></g>
+        <circle cx="0" cy="0" r="31" fill="none" stroke="white" stroke-width="1.5"/>
+        <path d="M-21,10 L-18,4 L18,4 L21,10 Z" fill="white"/><rect x="-17" y="-12" width="34" height="18" rx="2" fill="white"/><rect x="-7" y="-24" width="14" height="14" rx="2" fill="white"/><rect x="-12" y="-36" width="24" height="14" rx="7" fill="white"/>
+        <text x="0" y="-26" font-family="Arial,sans-serif" font-size="7" font-weight="700" fill="#0d2d5e" text-anchor="middle" letter-spacing="0.5">KF</text>
+        <rect x="-12" y="-10" width="24" height="14" rx="1" fill="#0d2d5e"/><line x1="-8" y1="-6" x2="8" y2="-6" stroke="white" stroke-width="1.3"/><line x1="-8" y1="-1" x2="8" y2="-1" stroke="white" stroke-width="1.3"/><line x1="-5" y1="4" x2="5" y2="4" stroke="white" stroke-width="1.3"/>
+        <text x="0" y="21" font-family="Arial,sans-serif" font-size="6" font-weight="700" fill="white" letter-spacing="2" text-anchor="middle">NOTARY</text>
+      </svg>
+      <div class="nav-wordmark"><span class="name">Kevin Feliciano</span><span class="sub">Notary Public</span></div>
+    </a>
+    <div class="nav-links">
+      <div class="nav-dropdown">
+        <a href="services.html">Services &amp; Fees</a>
+        <div class="nav-dropdown-menu">
+          <a href="services.html">Services &amp; Fees</a>
+          <a href="service-area.html" class="active">Service Area</a>
+          <a href="calculator.html">Fee Calculator</a>
+        </div>
+      </div>
+      <a href="book.html">How to Book</a>
+      <div class="nav-dropdown">
+        <a href="about.html">About</a>
+        <div class="nav-dropdown-menu">
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+          <a href="service-area.html">Service Area</a>
+          <a href="terms.html">Full Terms</a>
+        </div>
+      </div>
+      <a href="faq.html">FAQs</a>
+      <a href="contact.html">Contact</a>
+      <a href="book.html" class="nav-cta" style="color:#0d2d5e">Book Now</a>
+    </div>
+    <button class="nav-mobile-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <span class="eyebrow" style="color:rgba(255,255,255,0.5)">Where We Go</span>
+    <h1>Service Area</h1>
+    <p>Mobile notary services within 15 driving miles of Fremont City Hall — Southern Alameda and Northern Santa Clara Counties.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="two-col scroll-reveal" style="gap:48px;align-items:start">
+      <div>
+        <span class="eyebrow">Coverage</span>
+        <h2>15-Mile Radius from Fremont</h2>
+        <p class="mt-16">All appointments within 15 driving miles of <strong>Fremont City Hall (3300 Capitol Ave, Fremont, CA 94538)</strong> are covered by the standard travel fee ($45 for 1–2 acts, $30 for 3–4 acts, $15 for 5–9 acts, waived for 10+).</p>
+        <p class="mt-16">For appointments beyond 15 miles, additional mileage is billed at the current IRS standard mileage rate ($0.725/mile). Out-of-area appointments are subject to availability.</p>
+
+        <div style="background:var(--off-white);border:1px solid var(--border);border-radius:var(--radius-md);padding:20px;margin-top:24px">
+          <div style="font-size:0.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px">Travel Fee Summary</div>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div style="display:flex;justify-content:space-between;align-items:center;font-size:0.9rem">
+              <span style="color:var(--text-soft)">Within 15 miles (1–2 acts)</span>
+              <span style="font-weight:700;color:var(--navy)">$45.00</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;font-size:0.9rem">
+              <span style="color:var(--text-soft)">Within 15 miles (3–4 acts)</span>
+              <span style="font-weight:700;color:var(--navy)">$30.00</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;font-size:0.9rem">
+              <span style="color:var(--text-soft)">Within 15 miles (5–9 acts)</span>
+              <span style="font-weight:700;color:var(--navy)">$15.00</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;font-size:0.9rem">
+              <span style="color:var(--text-soft)">Within 15 miles (10+ acts)</span>
+              <span style="font-weight:700;color:#1a7a4a">Waived</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;font-size:0.9rem;border-top:1px solid var(--border);padding-top:10px">
+              <span style="color:var(--text-soft)">Beyond 15 miles (per extra mile)</span>
+              <span style="font-weight:700;color:var(--navy)">$0.725</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-32">
+          <a href="book.html" class="btn btn-primary">Book an Appointment</a>
+        </div>
+      </div>
+
+      <div>
+        <!-- Leaflet Map with 15-mile radius circle -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
+        <div id="service-map" style="height:460px;border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--border);box-shadow:var(--shadow-md)"></div>
+        <p style="font-size:0.78rem;color:var(--text-muted);margin-top:10px;text-align:center">15-mile service radius from Fremont City Hall · 3300 Capitol Ave, Fremont, CA 94538</p>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+        <script>
+          (function() {
+            // Fremont City Hall coordinates
+            var center = [37.5485, -121.9886];
+            var MILES_15_IN_METERS = 15 * 1609.344;
+
+            var map = L.map('service-map', {
+              center: center,
+              zoom: 10,
+              zoomControl: true,
+              scrollWheelZoom: false
+            });
+
+            // OpenStreetMap tiles — free, no API key
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+              attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+              maxZoom: 18
+            }).addTo(map);
+
+            // 15-mile radius circle
+            L.circle(center, {
+              radius: MILES_15_IN_METERS,
+              color: '#0d2d5e',
+              weight: 2,
+              fillColor: '#0d2d5e',
+              fillOpacity: 0.08
+            }).addTo(map);
+
+            // Custom marker for Fremont City Hall
+            var icon = L.divIcon({
+              className: '',
+              html: '<div style="width:14px;height:14px;background:#0d2d5e;border:3px solid white;border-radius:50%;box-shadow:0 2px 8px rgba(0,0,0,0.35)"></div>',
+              iconSize: [14, 14],
+              iconAnchor: [7, 7]
+            });
+
+            L.marker(center, { icon: icon })
+              .addTo(map)
+              .bindPopup(
+                '<strong style="color:#0d2d5e">Fremont City Hall</strong><br>' +
+                '<span style="font-size:0.82rem;color:#5a7090">3300 Capitol Ave, Fremont, CA 94538</span><br>' +
+                '<span style="font-size:0.78rem;color:#8a9ab0;margin-top:4px;display:block">Center of 15-mile service radius</span>'
+              )
+              .openPopup();
+
+            // City markers
+            var cities = [
+              { name: 'Newark',       coords: [37.5297, -122.0402] },
+              { name: 'Union City',   coords: [37.5935, -122.0438] },
+              { name: 'Hayward',      coords: [37.6688, -122.0808] },
+              { name: 'San Leandro',  coords: [37.7249, -122.1561] },
+              { name: 'Castro Valley',coords: [37.6941, -122.0858] },
+              { name: 'San Lorenzo',  coords: [37.6774, -122.1208] },
+              { name: 'Sunol',        coords: [37.5966, -121.8808] },
+              { name: 'Milpitas',     coords: [37.4323, -121.8996] },
+              { name: 'San Jose',     coords: [37.3382, -121.8863] },
+              { name: 'Santa Clara',  coords: [37.3541, -121.9552] },
+              { name: 'Sunnyvale',    coords: [37.3688, -122.0363] }
+            ];
+
+            var cityIcon = L.divIcon({
+              className: '',
+              html: '<div style="width:8px;height:8px;background:#3a7bc8;border:2px solid white;border-radius:50%;box-shadow:0 1px 4px rgba(0,0,0,0.25)"></div>',
+              iconSize: [8, 8],
+              iconAnchor: [4, 4]
+            });
+
+            cities.forEach(function(city) {
+              L.marker(city.coords, { icon: cityIcon })
+                .addTo(map)
+                .bindPopup('<strong style="color:#0d2d5e">' + city.name + '</strong>');
+            });
+          })();
+        </script>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-header text-center scroll-reveal">
+      <span class="eyebrow">Communities We Serve</span>
+      <h2>Cities in Our Service Area</h2>
+      <p style="text-align:center;margin:0 auto">The following cities and communities fall within or near our 15-mile service radius. Not sure if your location is covered? Use our fee calculator for an instant estimate.</p>
+    </div>
+    <div class="city-grid scroll-reveal">
+      <div class="city-card"><span class="city-pin"></span>Fremont</div>
+      <div class="city-card"><span class="city-pin"></span>Newark</div>
+      <div class="city-card"><span class="city-pin"></span>Union City</div>
+      <div class="city-card"><span class="city-pin"></span>Hayward</div>
+      <div class="city-card"><span class="city-pin"></span>San Leandro</div>
+      <div class="city-card"><span class="city-pin"></span>Castro Valley</div>
+      <div class="city-card"><span class="city-pin"></span>San Lorenzo</div>
+      <div class="city-card"><span class="city-pin"></span>Sunol</div>
+      <div class="city-card"><span class="city-pin"></span>Milpitas</div>
+      <div class="city-card"><span class="city-pin"></span>San Jose</div>
+      <div class="city-card"><span class="city-pin"></span>Santa Clara</div>
+      <div class="city-card"><span class="city-pin"></span>Sunnyvale</div>
+    </div>
+    <div class="text-center mt-32 scroll-reveal">
+      <p style="font-size:0.88rem;color:var(--text-muted)">Don't see your city? Out-of-area appointments may be available — additional mileage fees apply.</p>
+      <a href="calculator.html" class="btn-ghost mt-16" style="display:inline-flex">Estimate My Fees</a>
+    </div>
+  </div>
+</section>
+
+<section class="cta-banner scroll-reveal">
+  <div class="container">
+    <h2>Ready to book?</h2>
+    <p>Available evenings, weekends, and late nights throughout the Fremont area.</p>
+    <div class="btn-group">
+      <a href="book.html" class="btn btn-white">Book an Appointment</a>
+      <a href="calculator.html" class="btn btn-outline-white">Estimate My Fees</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div style="display:flex;align-items:center;gap:10px">
+          <svg width="32" height="32" viewBox="-43 -58 86 82" opacity="0.7">
+            <circle cx="0" cy="0" r="40" fill="none" stroke="white" stroke-width="1"/>
+            <g fill="white"><circle cx="0" cy="-36" r="1.3"/><circle cx="9.3" cy="-34.8" r="1.1"/><circle cx="18" cy="-31.2" r="1.1"/><circle cx="25.5" cy="-25.5" r="1.1"/><circle cx="31.2" cy="-18" r="1.1"/><circle cx="34.8" cy="-9.3" r="1.1"/><circle cx="36" cy="0" r="1.3"/><circle cx="34.8" cy="9.3" r="1.1"/><circle cx="31.2" cy="18" r="1.1"/><circle cx="25.5" cy="25.5" r="1.1"/><circle cx="18" cy="31.2" r="1.1"/><circle cx="9.3" cy="34.8" r="1.1"/><circle cx="0" cy="36" r="1.3"/><circle cx="-9.3" cy="34.8" r="1.1"/><circle cx="-18" cy="31.2" r="1.1"/><circle cx="-25.5" cy="25.5" r="1.1"/><circle cx="-31.2" cy="18" r="1.1"/><circle cx="-34.8" cy="9.3" r="1.1"/><circle cx="-36" cy="0" r="1.3"/><circle cx="-34.8" cy="-9.3" r="1.1"/><circle cx="-31.2" cy="-18" r="1.1"/><circle cx="-25.5" cy="-25.5" r="1.1"/><circle cx="-18" cy="-31.2" r="1.1"/><circle cx="-9.3" cy="-34.8" r="1.1"/></g>
+            <circle cx="0" cy="0" r="31" fill="none" stroke="white" stroke-width="1.5"/>
+            <path d="M-21,10 L-18,4 L18,4 L21,10 Z" fill="white"/><rect x="-17" y="-12" width="34" height="18" rx="2" fill="white"/><rect x="-7" y="-24" width="14" height="14" rx="2" fill="white"/><rect x="-12" y="-36" width="24" height="14" rx="7" fill="white"/>
+            <text x="0" y="-26" font-family="Arial,sans-serif" font-size="7" font-weight="700" fill="#0d2d5e" text-anchor="middle" letter-spacing="0.5">KF</text>
+            <rect x="-12" y="-10" width="24" height="14" rx="1" fill="#0d2d5e"/><line x1="-8" y1="-6" x2="8" y2="-6" stroke="white" stroke-width="1.3"/><line x1="-8" y1="-1" x2="8" y2="-1" stroke="white" stroke-width="1.3"/><line x1="-5" y1="4" x2="5" y2="4" stroke="white" stroke-width="1.3"/>
+            <text x="0" y="21" font-family="Arial,sans-serif" font-size="6" font-weight="700" fill="white" letter-spacing="2" text-anchor="middle">NOTARY</text>
+          </svg>
+          <div style="color:white;font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:600">Kevin Feliciano</div>
+        </div>
+        <p class="tagline">Your trusted mobile notary in the Bay Area — serving Southern Alameda and Northern Santa Clara Counties.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Pages</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="services.html">Services &amp; Fees</a></li>
+          <li><a href="book.html">How to Book</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="faq.html">FAQs</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="calculator.html">Fee Calculator</a></li>
+          <li><a href="service-area.html">Service Area</a></li>
+          <li><a href="terms.html">Terms of Notary Services</a></li>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copyright">&copy; 2026 Feliciano Consulting Services, LLC<br>DBA Feliciano Mobile Notary &amp; Signing Services<br>feliciano-notary.com</p>
+      <p class="footer-commission">Kevin Feliciano, Notary Public<br>Commission #2555580 &middot; Alameda County, CA<br>Expires May 18, 2030</p>
+    </div>
+  </div>
+</footer>
+<script src="js/main.js"></script>
+</body>
+</html>

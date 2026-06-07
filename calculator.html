@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Estimate your mobile notary fees — Kevin Feliciano, Notary Public, Fremont CA. Calculate notarial act fees, travel fees, and time-of-day fees instantly."/>
+  <title>Fee Calculator | Feliciano Mobile Notary</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="icon" type="image/png" href="images/favicon-32.png"/>
+  <style>
+    .calc-wrap {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+    .calc-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+    }
+    .calc-header {
+      background: var(--navy);
+      padding: 28px 32px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .calc-header h2 {
+      color: white;
+      font-size: 1.4rem;
+      margin: 0;
+    }
+    .calc-header p {
+      color: rgba(255,255,255,0.65);
+      font-size: 0.85rem;
+      margin-top: 4px;
+    }
+    .calc-body {
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .calc-field {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .calc-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--text-mid);
+    }
+    .calc-label span {
+      font-weight: 400;
+      text-transform: none;
+      letter-spacing: 0;
+      color: var(--text-muted);
+      font-size: 0.72rem;
+    }
+    .calc-select, .calc-input {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-body);
+      font-size: 0.92rem;
+      color: var(--text-dark);
+      background: var(--white);
+      outline: none;
+      transition: border-color 0.2s;
+      appearance: none;
+      -webkit-appearance: none;
+      cursor: pointer;
+    }
+    .calc-select:focus, .calc-input:focus {
+      border-color: var(--navy);
+    }
+    .select-wrap {
+      position: relative;
+    }
+    .select-wrap::after {
+      content: '▾';
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      pointer-events: none;
+      font-size: 0.85rem;
+    }
+    .calc-stepper {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      width: fit-content;
+    }
+    .calc-stepper button {
+      width: 44px;
+      height: 44px;
+      background: var(--off-white);
+      border: none;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--navy);
+      cursor: pointer;
+      transition: background 0.15s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .calc-stepper button:hover { background: var(--light-blue); }
+    .calc-stepper button:active { background: var(--border); }
+    .calc-stepper-val {
+      min-width: 56px;
+      text-align: center;
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--navy);
+      padding: 0 8px;
+      border-left: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .calc-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 0 -32px;
+    }
+    .calc-result {
+      background: var(--off-white);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      display: none;
+    }
+    .calc-result.visible { display: block; }
+    .calc-result-title {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+    .calc-line {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.9rem;
+    }
+    .calc-line:last-of-type { border-bottom: none; }
+    .calc-line-label { color: var(--text-soft); }
+    .calc-line-label small {
+      display: block;
+      font-size: 0.76rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+    .calc-line-val {
+      font-weight: 600;
+      color: var(--navy);
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+    }
+    .calc-line-val.waived {
+      color: var(--green);
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+      font-weight: 600;
+    }
+    .calc-total {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 0 0;
+      margin-top: 8px;
+      border-top: 2px solid var(--navy);
+    }
+    .calc-total-label {
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--navy);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .calc-total-val {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--navy);
+    }
+    .calc-disclaimer {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 14px;
+      line-height: 1.6;
+    }
+    .calc-cta {
+      margin-top: 16px;
+    }
+    .calc-btn {
+      width: 100%;
+      padding: 14px;
+      background: var(--navy);
+      color: white;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-body);
+      font-size: 0.92rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      letter-spacing: 0.3px;
+    }
+    .calc-btn:hover { background: var(--navy-dark); transform: translateY(-1px); }
+    .calc-btn:active { transform: translateY(0); }
+    .waived-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: #e8f5ee;
+      color: var(--green);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 20px;
+      margin-left: 8px;
+    }
+    .radio-group {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .radio-option {
+      position: relative;
+    }
+    .radio-option input {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .radio-option label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-size: 0.88rem;
+      color: var(--text-dark);
+      transition: all 0.15s;
+      background: var(--white);
+    }
+    .radio-option input:checked + label {
+      border-color: var(--navy);
+      background: var(--light-blue);
+      color: var(--navy);
+      font-weight: 600;
+    }
+    .radio-dot {
+      width: 14px;
+      height: 14px;
+      border: 2px solid var(--border);
+      border-radius: 50%;
+      flex-shrink: 0;
+      transition: all 0.15s;
+    }
+    .radio-option input:checked + label .radio-dot {
+      border-color: var(--navy);
+      background: var(--navy);
+      box-shadow: inset 0 0 0 2px white;
+    }
+    @media(max-width:600px) {
+      .calc-body { padding: 20px; }
+      .calc-header { padding: 20px; }
+      .radio-group { grid-template-columns: 1fr; }
+      .calc-divider { margin: 0 -20px; }
+    }
+  </style>
+<!-- Built: 2026-06-03 -->
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand">
+      <svg class="logo-mark" width="38" height="38" viewBox="-43 -58 86 82">
+        <circle cx="0" cy="0" r="40" fill="none" stroke="white" stroke-width="1"/>
+        <g fill="white"><circle cx="0" cy="-36" r="1.3"/><circle cx="9.3" cy="-34.8" r="1.1"/><circle cx="18" cy="-31.2" r="1.1"/><circle cx="25.5" cy="-25.5" r="1.1"/><circle cx="31.2" cy="-18" r="1.1"/><circle cx="34.8" cy="-9.3" r="1.1"/><circle cx="36" cy="0" r="1.3"/><circle cx="34.8" cy="9.3" r="1.1"/><circle cx="31.2" cy="18" r="1.1"/><circle cx="25.5" cy="25.5" r="1.1"/><circle cx="18" cy="31.2" r="1.1"/><circle cx="9.3" cy="34.8" r="1.1"/><circle cx="0" cy="36" r="1.3"/><circle cx="-9.3" cy="34.8" r="1.1"/><circle cx="-18" cy="31.2" r="1.1"/><circle cx="-25.5" cy="25.5" r="1.1"/><circle cx="-31.2" cy="18" r="1.1"/><circle cx="-34.8" cy="9.3" r="1.1"/><circle cx="-36" cy="0" r="1.3"/><circle cx="-34.8" cy="-9.3" r="1.1"/><circle cx="-31.2" cy="-18" r="1.1"/><circle cx="-25.5" cy="-25.5" r="1.1"/><circle cx="-18" cy="-31.2" r="1.1"/><circle cx="-9.3" cy="-34.8" r="1.1"/></g>
+        <circle cx="0" cy="0" r="31" fill="none" stroke="white" stroke-width="1.5"/>
+        <path d="M-21,10 L-18,4 L18,4 L21,10 Z" fill="white"/><rect x="-17" y="-12" width="34" height="18" rx="2" fill="white"/><rect x="-7" y="-24" width="14" height="14" rx="2" fill="white"/><rect x="-12" y="-36" width="24" height="14" rx="7" fill="white"/>
+        <text x="0" y="-26" font-family="Arial,sans-serif" font-size="7" font-weight="700" fill="#0d2d5e" text-anchor="middle" letter-spacing="0.5">KF</text>
+        <rect x="-12" y="-10" width="24" height="14" rx="1" fill="#0d2d5e"/><line x1="-8" y1="-6" x2="8" y2="-6" stroke="white" stroke-width="1.3"/><line x1="-8" y1="-1" x2="8" y2="-1" stroke="white" stroke-width="1.3"/><line x1="-5" y1="4" x2="5" y2="4" stroke="white" stroke-width="1.3"/>
+        <text x="0" y="21" font-family="Arial,sans-serif" font-size="6" font-weight="700" fill="white" letter-spacing="2" text-anchor="middle">NOTARY</text>
+      </svg>
+      <div class="nav-wordmark"><span class="name">Kevin Feliciano</span><span class="sub">Notary Public</span></div>
+    </a>
+    <div class="nav-links">
+      <div class="nav-dropdown">
+        <a href="services.html">Services &amp; Fees</a>
+        <div class="nav-dropdown-menu">
+          <a href="services.html">Services &amp; Fees</a>
+          <a href="service-area.html">Service Area</a>
+          <a href="calculator.html" class="active">Fee Calculator</a>
+        </div>
+      </div>
+      <a href="book.html">How to Book</a>
+      <div class="nav-dropdown">
+        <a href="about.html">About</a>
+        <div class="nav-dropdown-menu">
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+          <a href="service-area.html">Service Area</a>
+          <a href="terms.html">Full Terms</a>
+        </div>
+      </div>
+      <a href="faq.html">FAQs</a>
+      <a href="contact.html">Contact</a>
+      <a href="book.html" class="nav-cta" style="color:#0d2d5e">Book Now</a>
+    </div>
+    <button class="nav-mobile-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <span class="eyebrow" style="color:rgba(255,255,255,0.5)">Estimate Your Cost</span>
+    <h1>Fee Calculator</h1>
+    <p>Get an instant estimate before you book. No surprises — just clear, transparent pricing.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="calc-wrap">
+
+      <div class="calc-card">
+        <div class="calc-header">
+          <div>
+            <h2>Estimate My Fees</h2>
+            <p>Fill in the details below for an instant cost breakdown.</p>
+          </div>
+        </div>
+
+        <div class="calc-body">
+
+          <!-- Location -->
+          <div class="calc-field">
+            <div class="calc-label">Location <span>— driving distance from Fremont</span></div>
+            <div class="radio-group">
+              <div class="radio-option">
+                <input type="radio" name="location" id="loc-within" value="within" checked/>
+                <label for="loc-within"><span class="radio-dot"></span>Within 15 miles</label>
+              </div>
+              <div class="radio-option">
+                <input type="radio" name="location" id="loc-beyond" value="beyond"/>
+                <label for="loc-beyond"><span class="radio-dot"></span>Beyond 15 miles</label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Beyond 15 miles extra mileage -->
+          <div class="calc-field" id="mileage-field" style="display:none">
+            <div class="calc-label">Additional miles beyond 15 <span>— one way</span></div>
+            <div class="calc-stepper">
+              <button type="button" onclick="stepMiles(-1)">−</button>
+              <input type="number" id="miles-val" min="1" max="100" value="5" oninput="milesInput()" style="width:56px;text-align:center;font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:600;color:var(--navy);border:none;border-left:1px solid var(--border);border-right:1px solid var(--border);height:44px;outline:none;-moz-appearance:textfield;background:white;padding:0"/>
+              <button type="button" onclick="stepMiles(1)">+</button>
+            </div>
+          </div>
+
+          <hr class="calc-divider"/>
+
+          <!-- Number of notarial acts -->
+          <div class="calc-field">
+            <div class="calc-label">Number of notarial acts <span>— each signature requiring a notarial certificate</span></div>
+            <div class="calc-stepper">
+              <button type="button" onclick="stepActs(-1)">−</button>
+              <input type="number" id="acts-val" min="1" max="20" value="1" oninput="actsInput()" style="width:56px;text-align:center;font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:600;color:var(--navy);border:none;border-left:1px solid var(--border);border-right:1px solid var(--border);height:44px;outline:none;-moz-appearance:textfield;background:white;padding:0;display:flex;align-items:center;justify-content:center"/>
+              <button type="button" onclick="stepActs(1)">+</button>
+            </div>
+          </div>
+
+          <hr class="calc-divider"/>
+
+          <!-- Time of day -->
+          <div class="calc-field">
+            <div class="calc-label">Day &amp; Time of appointment</div>
+            <div class="select-wrap">
+              <select class="calc-select" id="time-select">
+                <option value="weekend-day" selected>Sat–Sun 9:00 AM – 6:00 PM (+$15.00)</option>
+                <option value="evening">All Days 6:00 PM – 9:00 PM (+$25.00)</option>
+                <option value="latenight">Any Day 9:00 PM – 12:00 AM (+$40.00)</option>
+                <option value="emergency">Less than 2 hours' notice (+$65.00)</option>
+              </select>
+            </div>
+          </div>
+
+          <hr class="calc-divider"/>
+
+          <!-- Calculate button -->
+          <button class="calc-btn" onclick="calculate()">Calculate My Estimate</button>
+
+          <!-- Result -->
+          <div class="calc-result" id="calc-result">
+            <div class="calc-result-title">Estimated Fee Breakdown</div>
+
+            <div class="calc-line" id="line-acts">
+              <div class="calc-line-label">
+                Notarial acts
+                <small id="acts-detail"></small>
+              </div>
+              <div class="calc-line-val" id="val-acts"></div>
+            </div>
+
+            <div class="calc-line" id="line-travel">
+              <div class="calc-line-label">
+                Travel fee
+                <small id="travel-detail"></small>
+              </div>
+              <div class="calc-line-val" id="val-travel"></div>
+            </div>
+
+            <div class="calc-line" id="line-mileage" style="display:none">
+              <div class="calc-line-label">
+                Additional mileage
+                <small id="mileage-detail"></small>
+              </div>
+              <div class="calc-line-val" id="val-mileage"></div>
+            </div>
+
+            <div class="calc-line" id="line-timeofday">
+              <div class="calc-line-label">
+                Time-of-day fee
+                <small id="timeofday-detail"></small>
+              </div>
+              <div class="calc-line-val" id="val-timeofday"></div>
+            </div>
+
+            <div class="calc-total">
+              <div class="calc-total-label">Estimated Total</div>
+              <div class="calc-total-val" id="val-total"></div>
+            </div>
+
+            <p class="calc-disclaimer" id="calc-disclaimer"></p>
+
+            <div class="calc-cta">
+              <a href="book.html" class="btn btn-primary" style="display:block;text-align:center;width:100%">Book an Appointment →</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Info box -->
+      <div style="margin-top:24px;background:var(--off-white);border:1px solid var(--border);border-radius:var(--radius-md);padding:20px 24px">
+        <div style="font-size:0.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-bottom:10px">How fees work</div>
+        <div style="display:flex;flex-direction:column;gap:8px;font-size:0.85rem;color:var(--text-soft)">
+          <div>✦ Notarial acts: <strong style="color:var(--navy)">$15.00 per act</strong> (flat rate, all sessions)</div>
+          <div>✦ Travel fee: <strong style="color:var(--navy)">$45</strong> (1–2 acts) &nbsp;·&nbsp; <strong style="color:var(--navy)">$30</strong> (3–4 acts) &nbsp;·&nbsp; <strong style="color:var(--navy)">$15</strong> (5–9 acts) &nbsp;·&nbsp; <strong style="color:var(--green)">Waived</strong> (10+ acts)</div>
+          <div>✦ Time-of-day: <strong style="color:var(--navy)">+$15</strong> (Sat–Sun 9 AM–6 PM) &nbsp;·&nbsp; <strong style="color:var(--navy)">+$25</strong> (all days 6–9 PM) &nbsp;·&nbsp; <strong style="color:var(--navy)">+$40</strong> (9 PM–12 AM) &nbsp;·&nbsp; <strong style="color:var(--navy)">+$65</strong> (&lt;2 hrs notice)</div>
+          <div>✦ Cancellation: free with 24+ hrs notice &nbsp;·&nbsp; <strong style="color:var(--navy)">$35.00</strong> if less than 24 hrs</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div style="display:flex;align-items:center;gap:10px">
+          <svg width="32" height="32" viewBox="-43 -58 86 82" opacity="0.7">
+            <circle cx="0" cy="0" r="40" fill="none" stroke="white" stroke-width="1"/>
+            <g fill="white"><circle cx="0" cy="-36" r="1.3"/><circle cx="9.3" cy="-34.8" r="1.1"/><circle cx="18" cy="-31.2" r="1.1"/><circle cx="25.5" cy="-25.5" r="1.1"/><circle cx="31.2" cy="-18" r="1.1"/><circle cx="34.8" cy="-9.3" r="1.1"/><circle cx="36" cy="0" r="1.3"/><circle cx="34.8" cy="9.3" r="1.1"/><circle cx="31.2" cy="18" r="1.1"/><circle cx="25.5" cy="25.5" r="1.1"/><circle cx="18" cy="31.2" r="1.1"/><circle cx="9.3" cy="34.8" r="1.1"/><circle cx="0" cy="36" r="1.3"/><circle cx="-9.3" cy="34.8" r="1.1"/><circle cx="-18" cy="31.2" r="1.1"/><circle cx="-25.5" cy="25.5" r="1.1"/><circle cx="-31.2" cy="18" r="1.1"/><circle cx="-34.8" cy="9.3" r="1.1"/><circle cx="-36" cy="0" r="1.3"/><circle cx="-34.8" cy="-9.3" r="1.1"/><circle cx="-31.2" cy="-18" r="1.1"/><circle cx="-25.5" cy="-25.5" r="1.1"/><circle cx="-18" cy="-31.2" r="1.1"/><circle cx="-9.3" cy="-34.8" r="1.1"/></g>
+            <circle cx="0" cy="0" r="31" fill="none" stroke="white" stroke-width="1.5"/>
+            <path d="M-21,10 L-18,4 L18,4 L21,10 Z" fill="white"/><rect x="-17" y="-12" width="34" height="18" rx="2" fill="white"/><rect x="-7" y="-24" width="14" height="14" rx="2" fill="white"/><rect x="-12" y="-36" width="24" height="14" rx="7" fill="white"/>
+            <text x="0" y="-26" font-family="Arial,sans-serif" font-size="7" font-weight="700" fill="#0d2d5e" text-anchor="middle" letter-spacing="0.5">KF</text>
+            <rect x="-12" y="-10" width="24" height="14" rx="1" fill="#0d2d5e"/><line x1="-8" y1="-6" x2="8" y2="-6" stroke="white" stroke-width="1.3"/><line x1="-8" y1="-1" x2="8" y2="-1" stroke="white" stroke-width="1.3"/><line x1="-5" y1="4" x2="5" y2="4" stroke="white" stroke-width="1.3"/>
+            <text x="0" y="21" font-family="Arial,sans-serif" font-size="6" font-weight="700" fill="white" letter-spacing="2" text-anchor="middle">NOTARY</text>
+          </svg>
+          <div style="color:white;font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:600">Kevin Feliciano</div>
+        </div>
+        <p class="tagline">Your trusted mobile notary in the Bay Area — serving Southern Alameda and Northern Santa Clara Counties.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Pages</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="services.html">Services &amp; Fees</a></li>
+          <li><a href="book.html">How to Book</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="faq.html">FAQs</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="calculator.html">Fee Calculator</a></li>
+          <li><a href="service-area.html">Service Area</a></li>
+          <li><a href="terms.html">Terms of Notary Services</a></li>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copyright">&copy; 2026 Feliciano Consulting Services, LLC<br>DBA Feliciano Mobile Notary &amp; Signing Services<br>feliciano-notary.com</p>
+      <p class="footer-commission">Kevin Feliciano, Notary Public<br>Commission #2555580 &middot; Alameda County, CA<br>Expires May 18, 2030</p>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script>
+  const IRS_RATE = 0.725;
+  let acts  = 1;
+  let miles = 5;
+
+  function stepActs(delta) {
+    acts = Math.max(1, Math.min(20, acts + delta));
+    document.getElementById('acts-val').value = acts;
+    if (document.getElementById('calc-result').classList.contains('visible')) calculate();
+  }
+  function actsInput() {
+    var v = parseInt(document.getElementById('acts-val').value) || 1;
+    acts = Math.max(1, Math.min(20, v));
+    document.getElementById('acts-val').value = acts;
+    if (document.getElementById('calc-result').classList.contains('visible')) calculate();
+  }
+  function stepMiles(delta) {
+    miles = Math.max(1, Math.min(100, miles + delta));
+    document.getElementById('miles-val').value = miles;
+    if (document.getElementById('calc-result').classList.contains('visible')) calculate();
+  }
+  function milesInput() {
+    var v = parseInt(document.getElementById('miles-val').value) || 1;
+    miles = Math.max(1, Math.min(100, v));
+    document.getElementById('miles-val').value = miles;
+    if (document.getElementById('calc-result').classList.contains('visible')) calculate();
+  }
+
+  document.querySelectorAll('input[name="location"]').forEach(r => {
+    r.addEventListener('change', () => {
+      const beyond = document.getElementById('loc-beyond').checked;
+      document.getElementById('mileage-field').style.display = beyond ? 'flex' : 'none';
+      if (document.getElementById('calc-result').classList.contains('visible')) calculate();
+    });
+  });
+
+  document.getElementById('time-select').addEventListener('change', () => {
+    if (document.getElementById('calc-result').classList.contains('visible')) calculate();
+  });
+
+  function fmt(n) {
+    return n === 0 ? '$0.00' : '$' + n.toFixed(2);
+  }
+
+  function calculate() {
+    acts  = Math.max(1, Math.min(20, parseInt(document.getElementById('acts-val').value) || 1));
+    miles = Math.max(1, Math.min(100, parseInt(document.getElementById('miles-val').value) || 5));
+
+    const locEl  = document.querySelector('input[name="location"]:checked');
+    const time   = document.getElementById('time-select').value;
+    const beyond = locEl ? locEl.value === 'beyond' : false;
+
+    // ── Acts fee: flat $15/act ────────────────────────────────
+    const actsFee   = acts * 15;
+    const actsDetail = acts + ' act' + (acts > 1 ? 's' : '') + ' × $15.00';
+
+    // ── Travel fee: $45(1-2) $30(3-4) $15(5-9) waived(10+) ──
+    const tenPlus = acts >= 10;
+    let travelFee, travelDetail, travelWaived = false;
+    if (tenPlus) {
+      travelFee    = 0;
+      travelWaived = true;
+      travelDetail = '10+ acts — travel fee waived';
+    } else if (acts <= 2) {
+      travelFee    = 45;
+      travelDetail = '1–2 acts';
+    } else if (acts <= 4) {
+      travelFee    = 30;
+      travelDetail = '3–4 acts';
+    } else {
+      travelFee    = 15;
+      travelDetail = '5–9 acts';
+    }
+
+    // ── Mileage (beyond 15 miles) ────────────────────────────
+    let mileageFee = 0, mileageDetail = '';
+    if (beyond) {
+      mileageFee    = parseFloat((miles * IRS_RATE).toFixed(2));
+      mileageDetail = miles + ' miles × $' + IRS_RATE + '/mile (IRS rate)';
+    }
+
+    // ── Time-of-day fee: always applies, no waivers ──────────
+    // weekend-day +$15, evening +$25, latenight +$40, emergency +$65
+    let todFee = 0, todDetail = '';
+    if (time === 'weekend-day') {
+      todFee    = 15;
+      todDetail = 'Saturday–Sunday 9:00 AM – 6:00 PM';
+    } else if (time === 'evening') {
+      todFee    = 25;
+      todDetail = 'All days 6:00 PM – 9:00 PM';
+    } else if (time === 'latenight') {
+      todFee    = 40;
+      todDetail = 'Late-night 9:00 PM – 12:00 AM';
+    } else if (time === 'emergency') {
+      todFee    = 65;
+      todDetail = 'Less than 2 hours’ notice';
+    }
+
+    const total = actsFee + travelFee + mileageFee + todFee;
+
+    // ── Render ───────────────────────────────────────────────
+    document.getElementById('acts-detail').textContent   = actsDetail;
+    document.getElementById('val-acts').textContent      = fmt(actsFee);
+
+    document.getElementById('travel-detail').textContent = travelDetail;
+    if (travelWaived) {
+      document.getElementById('val-travel').innerHTML = '<span class="waived-badge">✓ Waived</span>';
+    } else {
+      document.getElementById('val-travel').textContent = fmt(travelFee);
+    }
+
+    const mileageRow = document.getElementById('line-mileage');
+    if (beyond) {
+      mileageRow.style.display = 'flex';
+      document.getElementById('mileage-detail').textContent = mileageDetail;
+      document.getElementById('val-mileage').textContent    = fmt(mileageFee);
+    } else {
+      mileageRow.style.display = 'none';
+    }
+
+    document.getElementById('timeofday-detail').textContent = todDetail;
+    document.getElementById('val-timeofday').textContent    = todFee === 0 ? '$0.00' : fmt(todFee);
+
+    document.getElementById('val-total').textContent = fmt(total);
+
+    document.getElementById('calc-disclaimer').textContent = 'This is an estimate based on the information provided. Final fees are confirmed at the time of booking.';
+
+    const resultEl = document.getElementById('calc-result');
+    resultEl.classList.add('visible');
+    resultEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+</script>
+</body>
+</html>
