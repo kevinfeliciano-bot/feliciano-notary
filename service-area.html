@@ -11,7 +11,7 @@
     gtag('config', 'AW-18282682154');
   </script>
   <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="Mobile notary service area — Kevin Feliciano serves Fremont, Newark, Union City, Hayward, Milpitas, San Jose, Sunnyvale, Santa Clara, Castro Valley, San Leandro, Sunol, and San Lorenzo within 15 miles of Fremont City Hall."/>
+  <meta name="description" content="Mobile notary service area — Kevin Feliciano serves Fremont, Newark, Union City, Hayward, Milpitas, San Jose, Sunnyvale, Santa Clara, Castro Valley, San Leandro, Sunol, and San Lorenzo within 15 miles of Fremont City Hall, plus an extended service area covering Mountain View, Menlo Park, Palo Alto, and Redwood City."/>
   <title>Service Area | Feliciano Mobile Notary</title>
   <link rel="stylesheet" href="css/style.css"/>
   <link rel="icon" type="image/png" href="images/favicon-32.png"/>
@@ -116,6 +116,22 @@
     {
       "@type": "City",
       "name": "San Lorenzo"
+    },
+    {
+      "@type": "City",
+      "name": "Mountain View"
+    },
+    {
+      "@type": "City",
+      "name": "Menlo Park"
+    },
+    {
+      "@type": "City",
+      "name": "Palo Alto"
+    },
+    {
+      "@type": "City",
+      "name": "Redwood City"
     }
   ],
   "serviceArea": {
@@ -137,7 +153,8 @@
   "sameAs": [
     "https://share.google/cFku8jRMLi86PtdLI",
     "https://www.yelp.com/biz/feliciano-mobile-notary-and-signing-services-fremont-3",
-    "https://www.thumbtack.com/ca/fremont/notary-public/feliciano-mobile-notary-signing-services/service/584774308005511186"
+    "https://www.thumbtack.com/ca/fremont/notary-public/feliciano-mobile-notary-signing-services/service/584774308005511186",
+    "https://notary.snapdocs.com/notary-public/california/fremont/kevin-feliciano"
   ],
   "makesOffer": [
     {
@@ -166,13 +183,6 @@
       "itemOffered": {
         "@type": "Service",
         "name": "Loan Signing Services"
-      }
-    },
-    {
-      "@type": "Offer",
-      "itemOffered": {
-        "@type": "Service",
-        "name": "In-Person Electronic Notarization (IPEN)"
       }
     }
   ]
@@ -238,6 +248,7 @@
         <h2>15-Mile Radius from Fremont</h2>
         <p class="mt-16">All appointments within 15 driving miles of <strong>Fremont City Hall (3300 Capitol Ave, Fremont, CA 94538)</strong> are covered by the standard travel fee ($45 for 1–2 acts, $30 for 3–4 acts, $15 for 5–9 acts, waived for 10+).</p>
         <p class="mt-16">For appointments beyond 15 miles, additional mileage is billed at the current IRS standard mileage rate ($0.725/mile). Out-of-area appointments are subject to availability.</p>
+        <p class="mt-16">We also cover an <strong>Extended Service Area</strong> on the Peninsula — Mountain View, Menlo Park, Palo Alto, and Redwood City — where the same per-act and time-of-day fees apply, plus additional mileage beyond the standard 15-mile radius at the IRS standard rate.</p>
 
         <div style="background:var(--off-white);border:1px solid var(--border);border-radius:var(--radius-md);padding:20px;margin-top:24px">
           <div style="font-size:0.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px">Travel Fee Summary</div>
@@ -274,13 +285,14 @@
         <!-- Leaflet Map with 15-mile radius circle -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
         <div id="service-map" style="height:460px;border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--border);box-shadow:var(--shadow-md)"></div>
-        <p style="font-size:0.78rem;color:var(--text-muted);margin-top:10px;text-align:center">15-mile service radius from Fremont City Hall · 3300 Capitol Ave, Fremont, CA 94538</p>
+        <p style="font-size:0.78rem;color:var(--text-muted);margin-top:10px;text-align:center">15-mile service radius (navy) and 25-mile extended radius (gold) from Fremont City Hall · 3300 Capitol Ave, Fremont, CA 94538</p>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
         <script>
           (function() {
             // Fremont City Hall coordinates
             var center = [37.5485, -121.9886];
             var MILES_15_IN_METERS = 15 * 1609.344;
+            var MILES_25_IN_METERS = 25 * 1609.344;
 
             var map = L.map('service-map', {
               center: center,
@@ -295,14 +307,26 @@
               maxZoom: 18
             }).addTo(map);
 
-            // 15-mile radius circle
+            // 25-mile extended radius circle (drawn first, so the 15-mile circle sits on top)
+            var circle25 = L.circle(center, {
+              radius: MILES_25_IN_METERS,
+              color: '#c9a84c',
+              weight: 2,
+              fillColor: '#c9a84c',
+              fillOpacity: 0.06
+            }).addTo(map);
+
+            // 15-mile standard radius circle
             L.circle(center, {
               radius: MILES_15_IN_METERS,
               color: '#0d2d5e',
               weight: 2,
               fillColor: '#0d2d5e',
-              fillOpacity: 0.08
+              fillOpacity: 0.1
             }).addTo(map);
+
+            // Frame the map to fully show the 25-mile circle, regardless of container size
+            map.fitBounds(circle25.getBounds(), { padding: [8, 8] });
 
             // Custom marker for Fremont City Hall
             var icon = L.divIcon({
@@ -317,7 +341,7 @@
               .bindPopup(
                 '<strong style="color:#0d2d5e">Fremont City Hall</strong><br>' +
                 '<span style="font-size:0.82rem;color:#5a7090">3300 Capitol Ave, Fremont, CA 94538</span><br>' +
-                '<span style="font-size:0.78rem;color:#8a9ab0;margin-top:4px;display:block">Center of 15-mile service radius</span>'
+                '<span style="font-size:0.78rem;color:#8a9ab0;margin-top:4px;display:block">Center of 15-mile and 25-mile service radii</span>'
               )
               .openPopup();
 
@@ -347,6 +371,27 @@
               L.marker(city.coords, { icon: cityIcon })
                 .addTo(map)
                 .bindPopup('<strong style="color:#0d2d5e">' + city.name + '</strong>');
+            });
+
+            // Extended service area (Peninsula) — beyond the standard 15-mile radius
+            var extendedCities = [
+              { name: 'Mountain View', coords: [37.3861, -122.0839] },
+              { name: 'Palo Alto',     coords: [37.4419, -122.1430] },
+              { name: 'Menlo Park',    coords: [37.4530, -122.1817] },
+              { name: 'Redwood City',  coords: [37.4852, -122.2364] }
+            ];
+
+            var extendedIcon = L.divIcon({
+              className: '',
+              html: '<div style="width:8px;height:8px;background:#c9a84c;border:2px solid white;border-radius:50%;box-shadow:0 1px 4px rgba(0,0,0,0.25)"></div>',
+              iconSize: [8, 8],
+              iconAnchor: [4, 4]
+            });
+
+            extendedCities.forEach(function(city) {
+              L.marker(city.coords, { icon: extendedIcon })
+                .addTo(map)
+                .bindPopup('<strong style="color:#0d2d5e">' + city.name + '</strong><br><span style="font-size:0.78rem;color:#8a9ab0">Extended service area — additional mileage applies</span>');
             });
           })();
         </script>
@@ -381,6 +426,18 @@
     <div class="text-center mt-32 scroll-reveal">
       <p style="font-size:0.88rem;color:var(--text-muted)">Don't see your city? Out-of-area appointments may be available — additional mileage fees apply.</p>
       <a href="calculator.html" class="btn-ghost mt-16" style="display:inline-flex">Estimate My Fees</a>
+    </div>
+
+    <div class="section-header text-center scroll-reveal" style="margin-top:48px">
+      <span class="eyebrow">Peninsula Coverage</span>
+      <h2>Extended Service Area</h2>
+      <p style="text-align:center;margin:0 auto">These cities fall outside the standard 15-mile radius. The same per-act and time-of-day fees apply, plus additional mileage beyond 15 miles at the IRS standard rate.</p>
+    </div>
+    <div class="city-grid scroll-reveal">
+      <div class="city-card"><span class="city-pin"></span>Mountain View</div>
+      <div class="city-card"><span class="city-pin"></span>Palo Alto</div>
+      <div class="city-card"><span class="city-pin"></span>Menlo Park</div>
+      <div class="city-card"><span class="city-pin"></span>Redwood City</div>
     </div>
   </div>
 </section>
@@ -420,6 +477,7 @@
           <li><a href="https://share.google/cFku8jRMLi86PtdLI" target="_blank" rel="noopener noreferrer">Google Reviews</a></li>
           <li><a href="https://www.yelp.com/biz/feliciano-mobile-notary-and-signing-services-fremont-3" target="_blank" rel="noopener noreferrer">Yelp</a></li>
           <li><a href="https://www.thumbtack.com/ca/fremont/notary-public/feliciano-mobile-notary-signing-services/service/584774308005511186" target="_blank" rel="noopener noreferrer">Thumbtack</a></li>
+          <li><a href="https://notary.snapdocs.com/notary-public/california/fremont/kevin-feliciano" target="_blank" rel="noopener noreferrer">Snapdocs</a></li>
         </ul>
       </div>
       <div class="footer-col">
