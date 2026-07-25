@@ -11,7 +11,7 @@
     gtag('config', 'AW-18282682154');
   </script>
   <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="Mobile notary service area — Kevin Feliciano serves Fremont, Newark, Union City, Hayward, Milpitas, San Jose, Sunnyvale, Santa Clara, Castro Valley, San Leandro, Sunol, and San Lorenzo within 15 miles of Fremont City Hall, plus an extended service area covering Mountain View, Menlo Park, Palo Alto, and Redwood City."/>
+  <meta name="description" content="Mobile notary service area — Kevin Feliciano serves Fremont, Newark, Union City, Hayward, Milpitas, San Jose, Sunnyvale, Santa Clara, Castro Valley, San Leandro, Sunol, and San Lorenzo within 15 miles of Fremont City Hall, plus an extended service area covering Mountain View, Menlo Park, Palo Alto, Redwood City, San Mateo, Dublin, Pleasanton, Livermore, and San Ramon."/>
   <title>Service Area | Feliciano Mobile Notary</title>
   <link rel="stylesheet" href="css/style.css"/>
   <link rel="icon" type="image/png" href="images/favicon-32.png"/>
@@ -132,6 +132,26 @@
     {
       "@type": "City",
       "name": "Redwood City"
+    },
+    {
+      "@type": "City",
+      "name": "San Mateo"
+    },
+    {
+      "@type": "City",
+      "name": "Dublin"
+    },
+    {
+      "@type": "City",
+      "name": "Pleasanton"
+    },
+    {
+      "@type": "City",
+      "name": "Livermore"
+    },
+    {
+      "@type": "City",
+      "name": "San Ramon"
     }
   ],
   "serviceArea": {
@@ -247,7 +267,7 @@
         <span class="eyebrow">Coverage</span>
         <h2>15-Mile Radius from Fremont</h2>
         <p class="mt-16">All appointments within 15 driving miles of <strong>Fremont City Hall (3300 Capitol Ave, Fremont, CA 94538)</strong> are covered by the standard $50.00 travel fee.</p>
-        <p class="mt-16">Our <strong>Extended Service Area</strong> on the Peninsula — Mountain View, Menlo Park, Palo Alto, and Redwood City — falls in the 15&ndash;25 mile range and is covered by a flat $65.00 travel fee, the same as anywhere else in that distance range.</p>
+        <p class="mt-16">Our <strong>Extended Service Area</strong> — Mountain View, Menlo Park, Palo Alto, Redwood City, and San Mateo on the Peninsula, plus Dublin, Pleasanton, Livermore, and San Ramon in the Tri-Valley — falls in the 15&ndash;25 mile range and is covered by a flat $65.00 travel fee, the same as anywhere else in that distance range.</p>
         <p class="mt-16">For appointments beyond 25 miles, additional mileage is billed on top of the $65.00 base fee at the current IRS standard mileage rate ($0.725/mile). Out-of-area appointments are subject to availability. Urgent or emergency appointments (less than 2 hours' notice) are a flat $100.00 travel fee instead of the standard distance-based rate.</p>
 
         <div style="background:var(--off-white);border:1px solid var(--border);border-radius:var(--radius-md);padding:20px;margin-top:24px">
@@ -369,12 +389,17 @@
                 .bindPopup('<strong style="color:#0d2d5e">' + city.name + '</strong>');
             });
 
-            // Extended service area (Peninsula) — beyond the standard 15-mile radius
+            // Extended service area (Peninsula + Tri-Valley) — beyond the standard 15-mile radius
             var extendedCities = [
               { name: 'Mountain View', coords: [37.3861, -122.0839] },
               { name: 'Palo Alto',     coords: [37.4419, -122.1430] },
               { name: 'Menlo Park',    coords: [37.4530, -122.1817] },
-              { name: 'Redwood City',  coords: [37.4852, -122.2364] }
+              { name: 'Redwood City',  coords: [37.4852, -122.2364] },
+              { name: 'San Mateo',     coords: [37.5630, -122.3255] },
+              { name: 'Dublin',       coords: [37.7022, -121.9358] },
+              { name: 'Pleasanton',   coords: [37.6624, -121.8747] },
+              { name: 'Livermore',    coords: [37.6819, -121.7680] },
+              { name: 'San Ramon',    coords: [37.7799, -121.9780] }
             ];
 
             var extendedIcon = L.divIcon({
@@ -425,15 +450,20 @@
     </div>
 
     <div class="section-header text-center scroll-reveal" style="margin-top:48px">
-      <span class="eyebrow">Peninsula Coverage</span>
+      <span class="eyebrow">Peninsula &amp; Tri-Valley Coverage</span>
       <h2>Extended Service Area</h2>
-      <p style="text-align:center;margin:0 auto">These cities fall in the 15&ndash;25 mile range and are covered by the same flat $65.00 travel fee as anywhere else in that range — no extra mileage charge.</p>
+      <p style="text-align:center;margin:0 auto">These cities fall in the 15&ndash;25 mile range — via the Peninsula (Dumbarton Bridge) or the Tri-Valley (I-680/I-580) — and are covered by the same flat $65.00 travel fee as anywhere else in that range, no extra mileage charge.</p>
     </div>
     <div class="city-grid scroll-reveal">
       <div class="city-card"><span class="city-pin"></span>Mountain View</div>
       <div class="city-card"><span class="city-pin"></span>Palo Alto</div>
       <div class="city-card"><span class="city-pin"></span>Menlo Park</div>
       <div class="city-card"><span class="city-pin"></span>Redwood City</div>
+      <div class="city-card"><span class="city-pin"></span>San Mateo</div>
+      <div class="city-card"><span class="city-pin"></span>Dublin</div>
+      <div class="city-card"><span class="city-pin"></span>Pleasanton</div>
+      <div class="city-card"><span class="city-pin"></span>Livermore</div>
+      <div class="city-card"><span class="city-pin"></span>San Ramon</div>
     </div>
   </div>
 </section>
@@ -441,7 +471,7 @@
 <section class="cta-banner scroll-reveal">
   <div class="container">
     <h2>Ready to book?</h2>
-    <p>Available evenings, weekends, and late nights throughout the Fremont area.</p>
+    <p>Available evenings, weekends, and late nights throughout the Greater Fremont/Milpitas area.</p>
     <div class="btn-group">
       <a href="book.html" class="btn btn-white">Book an Appointment</a>
       <a href="calculator.html" class="btn btn-outline-white">Estimate My Fees</a>
@@ -465,7 +495,7 @@
           </svg>
           <div style="color:white;font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:600">Kevin Feliciano</div>
         </div>
-        <p class="tagline">Your trusted mobile notary in the Bay Area — serving Southern Alameda and Northern Santa Clara Counties.</p>
+        <p class="tagline">Your trusted mobile notary in the Bay Area — serving Southern Alameda, San Mateo, and Northern Santa Clara Counties.</p>
       </div>
       <div class="footer-col">
         <h4>Find Us Online</h4>
