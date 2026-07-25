@@ -246,32 +246,28 @@
       <div>
         <span class="eyebrow">Coverage</span>
         <h2>15-Mile Radius from Fremont</h2>
-        <p class="mt-16">All appointments within 15 driving miles of <strong>Fremont City Hall (3300 Capitol Ave, Fremont, CA 94538)</strong> are covered by the standard travel fee ($45 for 1–2 acts, $30 for 3–4 acts, $15 for 5–9 acts, waived for 10+).</p>
-        <p class="mt-16">For appointments beyond 15 miles, additional mileage is billed at the current IRS standard mileage rate ($0.725/mile). Out-of-area appointments are subject to availability.</p>
-        <p class="mt-16">We also cover an <strong>Extended Service Area</strong> on the Peninsula — Mountain View, Menlo Park, Palo Alto, and Redwood City — where the same per-act and time-of-day fees apply, plus additional mileage beyond the standard 15-mile radius at the IRS standard rate.</p>
+        <p class="mt-16">All appointments within 15 driving miles of <strong>Fremont City Hall (3300 Capitol Ave, Fremont, CA 94538)</strong> are covered by the standard $50.00 travel fee.</p>
+        <p class="mt-16">Our <strong>Extended Service Area</strong> on the Peninsula — Mountain View, Menlo Park, Palo Alto, and Redwood City — falls in the 15&ndash;25 mile range and is covered by a flat $65.00 travel fee, the same as anywhere else in that distance range.</p>
+        <p class="mt-16">For appointments beyond 25 miles, additional mileage is billed on top of the $65.00 base fee at the current IRS standard mileage rate ($0.725/mile). Out-of-area appointments are subject to availability. Urgent or emergency appointments (less than 2 hours' notice) are a flat $100.00 travel fee instead of the standard distance-based rate.</p>
 
         <div style="background:var(--off-white);border:1px solid var(--border);border-radius:var(--radius-md);padding:20px;margin-top:24px">
           <div style="font-size:0.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px">Travel Fee Summary</div>
           <div style="display:flex;flex-direction:column;gap:10px">
             <div style="display:flex;justify-content:space-between;align-items:center;font-size:0.9rem">
-              <span style="color:var(--text-soft)">Within 15 miles (1–2 acts)</span>
-              <span style="font-weight:700;color:var(--navy)">$45.00</span>
+              <span style="color:var(--text-soft)">Up to 15 miles</span>
+              <span style="font-weight:700;color:var(--navy)">$50.00</span>
             </div>
             <div style="display:flex;justify-content:space-between;align-items:center;font-size:0.9rem">
-              <span style="color:var(--text-soft)">Within 15 miles (3–4 acts)</span>
-              <span style="font-weight:700;color:var(--navy)">$30.00</span>
-            </div>
-            <div style="display:flex;justify-content:space-between;align-items:center;font-size:0.9rem">
-              <span style="color:var(--text-soft)">Within 15 miles (5–9 acts)</span>
-              <span style="font-weight:700;color:var(--navy)">$15.00</span>
-            </div>
-            <div style="display:flex;justify-content:space-between;align-items:center;font-size:0.9rem">
-              <span style="color:var(--text-soft)">Within 15 miles (10+ acts)</span>
-              <span style="font-weight:700;color:#1a7a4a">Waived</span>
+              <span style="color:var(--text-soft)">15&ndash;25 miles</span>
+              <span style="font-weight:700;color:var(--navy)">$65.00</span>
             </div>
             <div style="display:flex;justify-content:space-between;align-items:center;font-size:0.9rem;border-top:1px solid var(--border);padding-top:10px">
-              <span style="color:var(--text-soft)">Beyond 15 miles (per extra mile)</span>
+              <span style="color:var(--text-soft)">Beyond 25 miles (per extra mile)</span>
               <span style="font-weight:700;color:var(--navy)">$0.725</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;font-size:0.9rem;border-top:1px solid var(--border);padding-top:10px">
+              <span style="color:var(--text-soft)">Urgent / emergency (&lt;2 hrs notice)</span>
+              <span style="font-weight:700;color:var(--navy)">$100.00 flat</span>
             </div>
           </div>
         </div>
@@ -391,7 +387,7 @@
             extendedCities.forEach(function(city) {
               L.marker(city.coords, { icon: extendedIcon })
                 .addTo(map)
-                .bindPopup('<strong style="color:#0d2d5e">' + city.name + '</strong><br><span style="font-size:0.78rem;color:#8a9ab0">Extended service area — additional mileage applies</span>');
+                .bindPopup('<strong style="color:#0d2d5e">' + city.name + '</strong><br><span style="font-size:0.78rem;color:#8a9ab0">Extended service area — $65 flat travel fee (15&ndash;25 mi)</span>');
             });
           })();
         </script>
@@ -424,14 +420,14 @@
       <div class="city-card"><span class="city-pin"></span>Sunnyvale</div>
     </div>
     <div class="text-center mt-32 scroll-reveal">
-      <p style="font-size:0.88rem;color:var(--text-muted)">Don't see your city? Out-of-area appointments may be available — additional mileage fees apply.</p>
+      <p style="font-size:0.88rem;color:var(--text-muted)">Don't see your city? Out-of-area appointments may be available — the $65.00 15&ndash;25 mile rate applies up to 25 miles, with mileage billed beyond that.</p>
       <a href="calculator.html" class="btn-ghost mt-16" style="display:inline-flex">Estimate My Fees</a>
     </div>
 
     <div class="section-header text-center scroll-reveal" style="margin-top:48px">
       <span class="eyebrow">Peninsula Coverage</span>
       <h2>Extended Service Area</h2>
-      <p style="text-align:center;margin:0 auto">These cities fall outside the standard 15-mile radius. The same per-act and time-of-day fees apply, plus additional mileage beyond 15 miles at the IRS standard rate.</p>
+      <p style="text-align:center;margin:0 auto">These cities fall in the 15&ndash;25 mile range and are covered by the same flat $65.00 travel fee as anywhere else in that range — no extra mileage charge.</p>
     </div>
     <div class="city-grid scroll-reveal">
       <div class="city-card"><span class="city-pin"></span>Mountain View</div>

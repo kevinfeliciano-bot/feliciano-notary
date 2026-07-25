@@ -170,7 +170,7 @@
       "name": "How far will you travel?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Travel fees are $45.00 (1–2 acts), $30.00 (3–4 acts), $15.00 (5–9 acts), and waived for 10+ acts — all within 15 miles of Fremont. Additional mileage beyond 15 miles is charged at the IRS standard rate."
+        "text": "Travel fees are based on distance from Fremont: $50.00 up to 15 miles, $65.00 for 15–25 miles, and $65.00 plus mileage at the IRS standard rate beyond 25 miles. Urgent or emergency appointments (less than 2 hours' notice) are a flat $100.00 travel fee instead."
       }
     },
     {
@@ -271,25 +271,26 @@
         <!-- Location -->
         <div>
           <div style="font-size:0.65rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px">Location</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
-            <label id="hc-loc-within-lbl" style="display:flex;align-items:center;gap:7px;padding:9px 10px;border:1.5px solid #0d2d5e;border-radius:6px;cursor:pointer;font-size:0.8rem;font-weight:600;color:#0d2d5e;background:#e8eef8">
-              <input type="radio" name="hc-loc" id="hc-loc-within" value="within" checked onchange="hcUpdateLabels();hcCalc()" style="accent-color:#0d2d5e"/> Within 15 mi
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px">
+            <label id="hc-loc-within-lbl" style="display:flex;align-items:center;justify-content:center;gap:5px;padding:9px 4px;border:1.5px solid #0d2d5e;border-radius:6px;cursor:pointer;font-size:0.72rem;font-weight:600;color:#0d2d5e;background:#e8eef8;text-align:center">
+              <input type="radio" name="hc-loc" id="hc-loc-within" value="within" checked onchange="hcUpdateLabels();hcCalc()" style="accent-color:#0d2d5e"/> &le;15 mi
             </label>
-            <label id="hc-loc-beyond-lbl" style="display:flex;align-items:center;gap:7px;padding:9px 10px;border:1.5px solid #dde3ea;border-radius:6px;cursor:pointer;font-size:0.8rem;color:#1a2e4a;background:white">
-              <input type="radio" name="hc-loc" id="hc-loc-beyond" value="beyond" onchange="hcUpdateLabels();hcCalc()" style="accent-color:#0d2d5e"/> Beyond 15 mi
+            <label id="hc-loc-mid-lbl" style="display:flex;align-items:center;justify-content:center;gap:5px;padding:9px 4px;border:1.5px solid #dde3ea;border-radius:6px;cursor:pointer;font-size:0.72rem;color:#1a2e4a;background:white;text-align:center">
+              <input type="radio" name="hc-loc" id="hc-loc-mid" value="mid" onchange="hcUpdateLabels();hcCalc()" style="accent-color:#0d2d5e"/> 15&ndash;25 mi
+            </label>
+            <label id="hc-loc-beyond-lbl" style="display:flex;align-items:center;justify-content:center;gap:5px;padding:9px 4px;border:1.5px solid #dde3ea;border-radius:6px;cursor:pointer;font-size:0.72rem;color:#1a2e4a;background:white;text-align:center">
+              <input type="radio" name="hc-loc" id="hc-loc-beyond" value="beyond" onchange="hcUpdateLabels();hcCalc()" style="accent-color:#0d2d5e"/> 25+ mi
             </label>
           </div>
         </div>
 
-        <!-- Time -->
+        <!-- Urgent -->
         <div>
-          <div style="font-size:0.65rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px">Time of appointment</div>
+          <div style="font-size:0.65rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px">Urgent / emergency? (&lt;2 hrs notice)</div>
           <div style="position:relative">
-            <select id="hc-time" onchange="hcCalc()" style="width:100%;padding:9px 32px 9px 12px;border:1.5px solid #dde3ea;border-radius:6px;font-family:var(--font-body);font-size:0.82rem;color:#1a2e4a;background:white;outline:none;appearance:none;-webkit-appearance:none;cursor:pointer">
-              <option value="weekend-day" selected>Sat–Sun 9 AM – 6 PM (+$15)</option>
-              <option value="evening">All days 6 – 9 PM (+$25)</option>
-              <option value="latenight">Late-night 9 PM – 12 AM (+$40)</option>
-              <option value="emergency">Emergency &lt;2 hrs (+$65)</option>
+            <select id="hc-urgent" onchange="hcCalc()" style="width:100%;padding:9px 32px 9px 12px;border:1.5px solid #dde3ea;border-radius:6px;font-family:var(--font-body);font-size:0.82rem;color:#1a2e4a;background:white;outline:none;appearance:none;-webkit-appearance:none;cursor:pointer">
+              <option value="no" selected>No — standard travel fee</option>
+              <option value="yes">Yes — $100 flat travel fee</option>
             </select>
             <span style="position:absolute;right:12px;top:50%;transform:translateY(-50%);color:#8a9ab0;pointer-events:none;font-size:0.75rem">▾</span>
           </div>
@@ -303,15 +304,11 @@
           </div>
           <div style="display:flex;justify-content:space-between;font-size:0.82rem">
             <span style="color:#5a7090">Travel</span>
-            <span style="font-weight:600;color:#0d2d5e" id="hc-travel-val">$45.00</span>
-          </div>
-          <div style="display:flex;justify-content:space-between;font-size:0.82rem">
-            <span style="color:#5a7090">Time-of-day</span>
-            <span style="font-weight:600;color:#0d2d5e" id="hc-tod-val">$15.00</span>
+            <span style="font-weight:600;color:#0d2d5e" id="hc-travel-val">$50.00</span>
           </div>
           <div style="border-top:1.5px solid #dde3ea;padding-top:8px;margin-top:2px;display:flex;justify-content:space-between;align-items:center">
             <span style="font-size:0.7rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#0d2d5e">Estimated Total</span>
-            <span style="font-family:var(--font-display);font-size:1.6rem;font-weight:700;color:#0d2d5e" id="hc-total">$75.00</span>
+            <span style="font-family:var(--font-display);font-size:1.6rem;font-weight:700;color:#0d2d5e" id="hc-total">$65.00</span>
           </div>
         </div>
 
@@ -407,16 +404,16 @@
       <div style="background:var(--light-blue);border-radius:var(--radius-lg);padding:36px;border:1px solid var(--border)">
         <div style="font-family:var(--font-display);font-size:3rem;font-weight:600;color:var(--navy)">$15</div>
         <div style="font-size:0.78rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted);margin-bottom:20px">Per notarial act (flat rate)</div>
-        <div style="font-family:var(--font-display);font-size:2.2rem;font-weight:600;color:var(--navy)">$45 · $30 · $15 · $0</div>
-        <div style="font-size:0.78rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted);margin-bottom:4px">Travel fee by session size</div>
-        <div style="font-size:0.82rem;color:var(--text-muted);margin-bottom:20px">1–2 &nbsp;·&nbsp; 3–4 &nbsp;·&nbsp; 5–9 &nbsp;·&nbsp; 10+ acts</div>
-        <div style="font-size:0.82rem;color:var(--text-soft);line-height:1.6">Time-of-day fees apply to every appointment, regardless of session size, and are never waived. Only the travel fee is waived for 10+ acts.</div>
+        <div style="font-family:var(--font-display);font-size:2.2rem;font-weight:600;color:var(--navy)">$50 · $65 · $65+</div>
+        <div style="font-size:0.78rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted);margin-bottom:4px">Travel fee by distance</div>
+        <div style="font-size:0.82rem;color:var(--text-muted);margin-bottom:20px">Up to 15 mi &nbsp;·&nbsp; 15&ndash;25 mi &nbsp;·&nbsp; 25+ mi (plus mileage)</div>
+        <div style="font-size:0.82rem;color:var(--text-soft);line-height:1.6">Urgent or emergency appointments (less than 2 hours' notice) are a flat $100 travel fee instead of the standard distance-based rate.</div>
       </div>
       <div>
         <span class="eyebrow">Transparent Pricing</span>
         <h2>No Surprises</h2>
-        <p class="mt-16">All notarial acts are billed at a flat rate of $15.00 per act — no volume discounts. Travel fees decrease as your session grows and are waived entirely for ten or more acts, but time-of-day fees apply to every appointment regardless of session size.</p>
-        <p class="mt-16">Where an appointment falls into more than one fee category, the higher rate prevails — fees are never stacked or combined.</p>
+        <p class="mt-16">All notarial acts are billed at a flat rate of $15.00 per act — no volume discounts. Travel fees are based on distance from Fremont: $50 up to 15 miles, $65 for 15&ndash;25 miles, and $65 plus mileage at the IRS standard rate beyond 25 miles.</p>
+        <p class="mt-16">Urgent or emergency appointments (less than 2 hours' notice) are a flat $100 travel fee, regardless of distance up to 25 miles, plus mileage beyond that.</p>
         <a href="services.html" class="btn-ghost mt-32" style="display:inline-flex">See Full Fee Schedule</a>
       </div>
     </div>
@@ -505,7 +502,7 @@
         </div>
         <div class="faq-item">
           <button class="faq-q">How far will you travel? <span class="faq-icon">+</span></button>
-          <div class="faq-a">Travel fees are $45.00 (1–2 acts), $30.00 (3–4 acts), $15.00 (5–9 acts), and waived for 10+ acts — all within 15 miles of Fremont. Additional mileage beyond 15 miles is charged at the IRS standard rate.</div>
+          <div class="faq-a">Travel fees are based on distance from Fremont: $50.00 up to 15 miles, $65.00 for 15&ndash;25 miles, and $65.00 plus mileage at the IRS standard rate beyond 25 miles. Urgent or emergency appointments (less than 2 hours' notice) are a flat $100.00 travel fee instead.</div>
         </div>
         <div class="faq-item">
           <button class="faq-q">What forms of payment are accepted? <span class="faq-icon">+</span></button>
@@ -617,18 +614,17 @@ function hcActsInput() {
 }
 
 function hcUpdateLabels() {
-  var withinChecked = document.getElementById('hc-loc-within').checked;
-  var wl = document.getElementById('hc-loc-within-lbl');
-  var bl = document.getElementById('hc-loc-beyond-lbl');
-  if (!wl || !bl) return;
-  wl.style.borderColor = withinChecked ? '#0d2d5e' : '#dde3ea';
-  wl.style.background  = withinChecked ? '#e8eef8' : 'white';
-  wl.style.fontWeight  = withinChecked ? '600' : '400';
-  wl.style.color       = withinChecked ? '#0d2d5e' : '#1a2e4a';
-  bl.style.borderColor = !withinChecked ? '#0d2d5e' : '#dde3ea';
-  bl.style.background  = !withinChecked ? '#e8eef8' : 'white';
-  bl.style.fontWeight  = !withinChecked ? '600' : '400';
-  bl.style.color       = !withinChecked ? '#0d2d5e' : '#1a2e4a';
+  var loc = document.querySelector('input[name="hc-loc"]:checked').value;
+  var labels = { within: 'hc-loc-within-lbl', mid: 'hc-loc-mid-lbl', beyond: 'hc-loc-beyond-lbl' };
+  Object.keys(labels).forEach(function(key) {
+    var el = document.getElementById(labels[key]);
+    if (!el) return;
+    var active = key === loc;
+    el.style.borderColor = active ? '#0d2d5e' : '#dde3ea';
+    el.style.background  = active ? '#e8eef8' : 'white';
+    el.style.fontWeight  = active ? '600' : '400';
+    el.style.color       = active ? '#0d2d5e' : '#1a2e4a';
+  });
 }
 
 function hcFmt(n) {
@@ -636,10 +632,11 @@ function hcFmt(n) {
 }
 
 function hcCalc() {
-  var locEl  = document.querySelector('input[name="hc-loc"]:checked');
-  var timeEl = document.getElementById('hc-time');
-  if (!locEl || !timeEl) return;
-  var time = timeEl.value;
+  var locEl = document.querySelector('input[name="hc-loc"]:checked');
+  var urgentEl = document.getElementById('hc-urgent');
+  if (!locEl || !urgentEl) return;
+  var loc = locEl.value; // 'within' | 'mid' | 'beyond'
+  var urgent = urgentEl.value === 'yes';
   var inputEl = document.getElementById('hc-acts');
   hcActs = Math.max(1, Math.min(20, parseInt(inputEl.value) || 1));
   inputEl.value = hcActs;
@@ -650,31 +647,27 @@ function hcCalc() {
   document.getElementById('hc-acts-label').textContent = acts + ' act' + (acts > 1 ? 's' : '') + ' x $15.00';
   document.getElementById('hc-acts-val').textContent = hcFmt(actsFee);
 
-  // Travel fee — $45 (1-2), $30 (3-4), $15 (5-9), waived (10+)
-  var travelFee;
-  var beyond = locEl.value === 'beyond';
-  var tenPlus = acts >= 10;
-  if (tenPlus)        travelFee = 0;
-  else if (acts <= 2) travelFee = 45;
-  else if (acts <= 4) travelFee = 30;
-  else                travelFee = 15;
-  var travelText = tenPlus ? 'Waived' : hcFmt(travelFee);
-  if (beyond) travelText = (tenPlus ? 'Waived' : hcFmt(travelFee)) + ' + mileage';
+  // Travel fee — distance-based, or $100 flat if urgent
+  // Standard: $50 (up to 15 mi), $65 (15–25 mi), $65 + mileage (25+ mi)
+  // Urgent:   $100 flat (under 25 mi), $100 + mileage (25+ mi)
+  var travelFee, travelText;
+  if (urgent) {
+    travelFee = 100;
+    travelText = loc === 'beyond' ? hcFmt(travelFee) + ' + mileage' : hcFmt(travelFee);
+  } else if (loc === 'within') {
+    travelFee = 50;
+    travelText = hcFmt(travelFee);
+  } else if (loc === 'mid') {
+    travelFee = 65;
+    travelText = hcFmt(travelFee);
+  } else {
+    travelFee = 65;
+    travelText = hcFmt(travelFee) + ' + mileage';
+  }
   document.getElementById('hc-travel-val').textContent = travelText;
-  document.getElementById('hc-travel-val').style.color = tenPlus ? '#1a7a4a' : '#0d2d5e';
 
-  // Time-of-day fee — always applies, no waivers
-  // weekend-day=+$15, evening=+$25, latenight=+$40, emergency=+$65
-  var todFee = 0;
-  if      (time === 'weekend-day') todFee = 15;
-  else if (time === 'evening')     todFee = 25;
-  else if (time === 'latenight')   todFee = 40;
-  else if (time === 'emergency')   todFee = 65;
-
-  document.getElementById('hc-tod-val').textContent = todFee > 0 ? hcFmt(todFee) : '$0.00';
-
-  // Total
-  var total = actsFee + travelFee + todFee;
+  // Total (base travel fee only — exact mileage beyond 25 mi calculated on the full calculator)
+  var total = actsFee + travelFee;
   document.getElementById('hc-total').textContent = hcFmt(total);
 }
 

@@ -12,7 +12,7 @@
   </script>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="Estimate your mobile notary fees — Kevin Feliciano, Notary Public, Fremont CA. Calculate notarial act fees, travel fees, and time-of-day fees instantly."/>
+  <meta name="description" content="Estimate your mobile notary fees — Kevin Feliciano, Notary Public, Fremont CA. Calculate notarial act fees and travel fees instantly."/>
   <title>Fee Calculator | Feliciano Mobile Notary</title>
   <link rel="stylesheet" href="css/style.css"/>
   <link rel="icon" type="image/png" href="images/favicon-32.png"/>
@@ -252,7 +252,7 @@
     }
     .radio-group {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
       gap: 10px;
     }
     .radio-option {
@@ -512,20 +512,24 @@
             <div class="radio-group">
               <div class="radio-option">
                 <input type="radio" name="location" id="loc-within" value="within" checked/>
-                <label for="loc-within"><span class="radio-dot"></span>Within 15 miles</label>
+                <label for="loc-within"><span class="radio-dot"></span>Up to 15 miles</label>
+              </div>
+              <div class="radio-option">
+                <input type="radio" name="location" id="loc-mid" value="mid"/>
+                <label for="loc-mid"><span class="radio-dot"></span>15&ndash;25 miles</label>
               </div>
               <div class="radio-option">
                 <input type="radio" name="location" id="loc-beyond" value="beyond"/>
-                <label for="loc-beyond"><span class="radio-dot"></span>Beyond 15 miles</label>
+                <label for="loc-beyond"><span class="radio-dot"></span>25+ miles</label>
               </div>
             </div>
           </div>
 
-          <!-- Beyond 15 miles extra mileage -->
+          <!-- Beyond 25 miles extra mileage -->
           <div class="calc-field" id="mileage-field" style="display:none">
-            <div class="calc-label">Additional miles beyond 15 <span>— one way</span></div>
+            <div class="calc-label">Additional miles beyond 25 <span>&mdash; one way</span></div>
             <div class="calc-stepper">
-              <button type="button" onclick="stepMiles(-1)">−</button>
+              <button type="button" onclick="stepMiles(-1)">&minus;</button>
               <input type="number" id="miles-val" min="1" max="100" value="5" oninput="milesInput()" style="width:56px;text-align:center;font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:600;color:var(--navy);border:none;border-left:1px solid var(--border);border-right:1px solid var(--border);height:44px;outline:none;-moz-appearance:textfield;background:white;padding:0"/>
               <button type="button" onclick="stepMiles(1)">+</button>
             </div>
@@ -545,16 +549,18 @@
 
           <hr class="calc-divider"/>
 
-          <!-- Time of day -->
+          <!-- Urgent / Emergency -->
           <div class="calc-field">
-            <div class="calc-label">Day &amp; Time of appointment</div>
-            <div class="select-wrap">
-              <select class="calc-select" id="time-select">
-                <option value="weekend-day" selected>Sat–Sun 9:00 AM – 6:00 PM (+$15.00)</option>
-                <option value="evening">All Days 6:00 PM – 9:00 PM (+$25.00)</option>
-                <option value="latenight">Any Day 9:00 PM – 12:00 AM (+$40.00)</option>
-                <option value="emergency">Less than 2 hours' notice (+$65.00)</option>
-              </select>
+            <div class="calc-label">Urgent or emergency appointment? <span>— less than 2 hours' notice</span></div>
+            <div class="radio-group">
+              <div class="radio-option">
+                <input type="radio" name="urgent" id="urgent-no" value="no" checked/>
+                <label for="urgent-no"><span class="radio-dot"></span>No</label>
+              </div>
+              <div class="radio-option">
+                <input type="radio" name="urgent" id="urgent-yes" value="yes"/>
+                <label for="urgent-yes"><span class="radio-dot"></span>Yes &mdash; $100 flat travel fee</label>
+              </div>
             </div>
           </div>
 
@@ -591,14 +597,6 @@
               <div class="calc-line-val" id="val-mileage"></div>
             </div>
 
-            <div class="calc-line" id="line-timeofday">
-              <div class="calc-line-label">
-                Time-of-day fee
-                <small id="timeofday-detail"></small>
-              </div>
-              <div class="calc-line-val" id="val-timeofday"></div>
-            </div>
-
             <div class="calc-total">
               <div class="calc-total-label">Estimated Total</div>
               <div class="calc-total-val" id="val-total"></div>
@@ -619,8 +617,8 @@
         <div style="font-size:0.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-bottom:10px">How fees work</div>
         <div style="display:flex;flex-direction:column;gap:8px;font-size:0.85rem;color:var(--text-soft)">
           <div>✦ Notarial acts: <strong style="color:var(--navy)">$15.00 per act</strong> (flat rate, all sessions)</div>
-          <div>✦ Travel fee: <strong style="color:var(--navy)">$45</strong> (1–2 acts) &nbsp;·&nbsp; <strong style="color:var(--navy)">$30</strong> (3–4 acts) &nbsp;·&nbsp; <strong style="color:var(--navy)">$15</strong> (5–9 acts) &nbsp;·&nbsp; <strong style="color:var(--green)">Waived</strong> (10+ acts)</div>
-          <div>✦ Time-of-day: <strong style="color:var(--navy)">+$15</strong> (Sat–Sun 9 AM–6 PM) &nbsp;·&nbsp; <strong style="color:var(--navy)">+$25</strong> (all days 6–9 PM) &nbsp;·&nbsp; <strong style="color:var(--navy)">+$40</strong> (9 PM–12 AM) &nbsp;·&nbsp; <strong style="color:var(--navy)">+$65</strong> (&lt;2 hrs notice)</div>
+          <div>✦ Travel fee: <strong style="color:var(--navy)">$50</strong> (up to 15 mi) &nbsp;·&nbsp; <strong style="color:var(--navy)">$65</strong> (15&ndash;25 mi) &nbsp;·&nbsp; <strong style="color:var(--navy)">$65 + mileage</strong> (25+ mi, IRS rate beyond 25)</div>
+          <div>✦ Urgent/Emergency (&lt;2 hrs notice): <strong style="color:var(--navy)">$100 flat travel fee</strong> (replaces standard travel fee; mileage still applies beyond 25 mi)</div>
           <div>✦ Cancellation: free with 24+ hrs notice &nbsp;·&nbsp; <strong style="color:var(--navy)">$35.00</strong> if less than 24 hrs</div>
         </div>
       </div>
@@ -716,14 +714,16 @@
 
   document.querySelectorAll('input[name="location"]').forEach(r => {
     r.addEventListener('change', () => {
-      const beyond = document.getElementById('loc-beyond').checked;
-      document.getElementById('mileage-field').style.display = beyond ? 'flex' : 'none';
+      const isBeyond = document.getElementById('loc-beyond').checked;
+      document.getElementById('mileage-field').style.display = isBeyond ? 'flex' : 'none';
       if (document.getElementById('calc-result').classList.contains('visible')) calculate();
     });
   });
 
-  document.getElementById('time-select').addEventListener('change', () => {
-    if (document.getElementById('calc-result').classList.contains('visible')) calculate();
+  document.querySelectorAll('input[name="urgent"]').forEach(r => {
+    r.addEventListener('change', () => {
+      if (document.getElementById('calc-result').classList.contains('visible')) calculate();
+    });
   });
 
   function fmt(n) {
@@ -735,79 +735,58 @@
     miles = Math.max(1, Math.min(100, parseInt(document.getElementById('miles-val').value) || 5));
 
     const locEl  = document.querySelector('input[name="location"]:checked');
-    const time   = document.getElementById('time-select').value;
-    const beyond = locEl ? locEl.value === 'beyond' : false;
+    const loc    = locEl ? locEl.value : 'within'; // 'within' | 'mid' | 'beyond'
+    const urgentEl = document.querySelector('input[name="urgent"]:checked');
+    const urgent = urgentEl ? urgentEl.value === 'yes' : false;
 
     // ── Acts fee: flat $15/act ────────────────────────────────
     const actsFee   = acts * 15;
     const actsDetail = acts + ' act' + (acts > 1 ? 's' : '') + ' × $15.00';
 
-    // ── Travel fee: $45(1-2) $30(3-4) $15(5-9) waived(10+) ──
-    const tenPlus = acts >= 10;
-    let travelFee, travelDetail, travelWaived = false;
-    if (tenPlus) {
-      travelFee    = 0;
-      travelWaived = true;
-      travelDetail = '10+ acts — travel fee waived';
-    } else if (acts <= 2) {
-      travelFee    = 45;
-      travelDetail = '1–2 acts';
-    } else if (acts <= 4) {
-      travelFee    = 30;
-      travelDetail = '3–4 acts';
+    // ── Travel fee: distance-based, or $100 flat if urgent ───
+    // Standard: $50 (up to 15 mi), $65 (15–25 mi), $65 (25+ mi, + mileage)
+    // Urgent:   $100 flat (under 25 mi), $100 + mileage (25+ mi)
+    let travelFee, travelDetail;
+    if (urgent) {
+      travelFee = 100;
+      travelDetail = loc === 'beyond'
+        ? 'Urgent/emergency — 25+ miles'
+        : 'Urgent/emergency appointment';
+    } else if (loc === 'within') {
+      travelFee = 50;
+      travelDetail = 'Up to 15 miles';
+    } else if (loc === 'mid') {
+      travelFee = 65;
+      travelDetail = '15–25 miles';
     } else {
-      travelFee    = 15;
-      travelDetail = '5–9 acts';
+      travelFee = 65;
+      travelDetail = '25+ miles (base)';
     }
 
-    // ── Mileage (beyond 15 miles) ────────────────────────────
+    // ── Mileage: only applies for the 25+ mile tier ──────────
     let mileageFee = 0, mileageDetail = '';
-    if (beyond) {
+    if (loc === 'beyond') {
       mileageFee    = parseFloat((miles * IRS_RATE).toFixed(2));
-      mileageDetail = miles + ' miles × $' + IRS_RATE + '/mile (IRS rate)';
+      mileageDetail = miles + ' miles × $' + IRS_RATE + '/mile (IRS rate, beyond 25 mi)';
     }
 
-    // ── Time-of-day fee: always applies, no waivers ──────────
-    // weekend-day +$15, evening +$25, latenight +$40, emergency +$65
-    let todFee = 0, todDetail = '';
-    if (time === 'weekend-day') {
-      todFee    = 15;
-      todDetail = 'Saturday–Sunday 9:00 AM – 6:00 PM';
-    } else if (time === 'evening') {
-      todFee    = 25;
-      todDetail = 'All days 6:00 PM – 9:00 PM';
-    } else if (time === 'latenight') {
-      todFee    = 40;
-      todDetail = 'Late-night 9:00 PM – 12:00 AM';
-    } else if (time === 'emergency') {
-      todFee    = 65;
-      todDetail = 'Less than 2 hours’ notice';
-    }
-
-    const total = actsFee + travelFee + mileageFee + todFee;
+    const total = actsFee + travelFee + mileageFee;
 
     // ── Render ───────────────────────────────────────────────
     document.getElementById('acts-detail').textContent   = actsDetail;
     document.getElementById('val-acts').textContent      = fmt(actsFee);
 
     document.getElementById('travel-detail').textContent = travelDetail;
-    if (travelWaived) {
-      document.getElementById('val-travel').innerHTML = '<span class="waived-badge">✓ Waived</span>';
-    } else {
-      document.getElementById('val-travel').textContent = fmt(travelFee);
-    }
+    document.getElementById('val-travel').textContent    = fmt(travelFee);
 
     const mileageRow = document.getElementById('line-mileage');
-    if (beyond) {
+    if (loc === 'beyond') {
       mileageRow.style.display = 'flex';
       document.getElementById('mileage-detail').textContent = mileageDetail;
       document.getElementById('val-mileage').textContent    = fmt(mileageFee);
     } else {
       mileageRow.style.display = 'none';
     }
-
-    document.getElementById('timeofday-detail').textContent = todDetail;
-    document.getElementById('val-timeofday').textContent    = todFee === 0 ? '$0.00' : fmt(todFee);
 
     document.getElementById('val-total').textContent = fmt(total);
 
