@@ -532,11 +532,11 @@
             <div class="radio-group">
               <div class="radio-option">
                 <input type="radio" name="location" id="loc-within" value="within" checked/>
-                <label for="loc-within"><span class="radio-dot"></span>Up to 15 miles</label>
+                <label for="loc-within"><span class="radio-dot"></span>Up to 20 miles</label>
               </div>
               <div class="radio-option">
                 <input type="radio" name="location" id="loc-mid" value="mid"/>
-                <label for="loc-mid"><span class="radio-dot"></span>15&ndash;25 miles</label>
+                <label for="loc-mid"><span class="radio-dot"></span>20&ndash;25 miles</label>
               </div>
               <div class="radio-option">
                 <input type="radio" name="location" id="loc-beyond" value="beyond"/>
@@ -636,8 +636,8 @@
       <div style="margin-top:24px;background:var(--off-white);border:1px solid var(--border);border-radius:var(--radius-md);padding:20px 24px">
         <div style="font-size:0.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-bottom:10px">How fees work</div>
         <div style="display:flex;flex-direction:column;gap:8px;font-size:0.85rem;color:var(--text-soft)">
-          <div>✦ Notarial acts: <strong style="color:var(--navy)">$15.00 per act</strong> (flat rate, all sessions)</div>
-          <div>✦ Travel fee: <strong style="color:var(--navy)">$50</strong> (up to 15 mi) &nbsp;·&nbsp; <strong style="color:var(--navy)">$65</strong> (15&ndash;25 mi) &nbsp;·&nbsp; <strong style="color:var(--navy)">$65 + mileage</strong> (25+ mi, IRS rate beyond 25)</div>
+          <div>✦ Notarial acts: <strong style="color:var(--navy)">$10.00 per act</strong> (flat rate, all sessions)</div>
+          <div>✦ Travel fee: <strong style="color:var(--navy)">$50</strong> (up to 20 mi) &nbsp;·&nbsp; <strong style="color:var(--navy)">$65</strong> (20&ndash;25 mi) &nbsp;·&nbsp; <strong style="color:var(--navy)">$65 + mileage</strong> (25+ mi, IRS rate beyond 25)</div>
           <div>✦ Urgent/Emergency (&lt;2 hrs notice): <strong style="color:var(--navy)">$100 flat travel fee</strong> (replaces standard travel fee; mileage still applies beyond 25 mi)</div>
           <div>✦ Cancellation: free with 24+ hrs notice &nbsp;·&nbsp; <strong style="color:var(--navy)">$35.00</strong> if less than 24 hrs</div>
         </div>
@@ -759,12 +759,12 @@
     const urgentEl = document.querySelector('input[name="urgent"]:checked');
     const urgent = urgentEl ? urgentEl.value === 'yes' : false;
 
-    // ── Acts fee: flat $15/act ────────────────────────────────
-    const actsFee   = acts * 15;
-    const actsDetail = acts + ' act' + (acts > 1 ? 's' : '') + ' × $15.00';
+    // ── Acts fee: flat $10/act ────────────────────────────────
+    const actsFee   = acts * 10;
+    const actsDetail = acts + ' act' + (acts > 1 ? 's' : '') + ' × $10.00';
 
     // ── Travel fee: distance-based, or $100 flat if urgent ───
-    // Standard: $50 (up to 15 mi), $65 (15–25 mi), $65 (25+ mi, + mileage)
+    // Standard: $50 (up to 20 mi), $65 (20–25 mi), $65 (25+ mi, + mileage)
     // Urgent:   $100 flat (under 25 mi), $100 + mileage (25+ mi)
     let travelFee, travelDetail;
     if (urgent) {
@@ -774,10 +774,10 @@
         : 'Urgent/emergency appointment';
     } else if (loc === 'within') {
       travelFee = 50;
-      travelDetail = 'Up to 15 miles';
+      travelDetail = 'Up to 20 miles';
     } else if (loc === 'mid') {
       travelFee = 65;
-      travelDetail = '15–25 miles';
+      travelDetail = '20–25 miles';
     } else {
       travelFee = 65;
       travelDetail = '25+ miles (base)';

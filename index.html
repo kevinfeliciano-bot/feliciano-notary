@@ -190,7 +190,7 @@
       "name": "How far will you travel?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Travel fees are based on distance from Fremont: $50.00 up to 15 miles, $65.00 for 15–25 miles, and $65.00 plus mileage at the IRS standard rate beyond 25 miles. Urgent or emergency appointments (less than 2 hours' notice) are a flat $100.00 travel fee instead."
+        "text": "Travel fees are based on distance from Fremont: $50.00 up to 20 miles, $65.00 for 20–25 miles, and $65.00 plus mileage at the IRS standard rate beyond 25 miles. Urgent or emergency appointments (less than 2 hours' notice) are a flat $100.00 travel fee instead."
       }
     },
     {
@@ -293,10 +293,10 @@
           <div style="font-size:0.65rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px">Location</div>
           <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px">
             <label id="hc-loc-within-lbl" style="display:flex;align-items:center;justify-content:center;gap:5px;padding:9px 4px;border:1.5px solid #0d2d5e;border-radius:6px;cursor:pointer;font-size:0.72rem;font-weight:600;color:#0d2d5e;background:#e8eef8;text-align:center">
-              <input type="radio" name="hc-loc" id="hc-loc-within" value="within" checked onchange="hcUpdateLabels();hcCalc()" style="accent-color:#0d2d5e"/> &le;15 mi
+              <input type="radio" name="hc-loc" id="hc-loc-within" value="within" checked onchange="hcUpdateLabels();hcCalc()" style="accent-color:#0d2d5e"/> &le;20 mi
             </label>
             <label id="hc-loc-mid-lbl" style="display:flex;align-items:center;justify-content:center;gap:5px;padding:9px 4px;border:1.5px solid #dde3ea;border-radius:6px;cursor:pointer;font-size:0.72rem;color:#1a2e4a;background:white;text-align:center">
-              <input type="radio" name="hc-loc" id="hc-loc-mid" value="mid" onchange="hcUpdateLabels();hcCalc()" style="accent-color:#0d2d5e"/> 15&ndash;25 mi
+              <input type="radio" name="hc-loc" id="hc-loc-mid" value="mid" onchange="hcUpdateLabels();hcCalc()" style="accent-color:#0d2d5e"/> 20&ndash;25 mi
             </label>
             <label id="hc-loc-beyond-lbl" style="display:flex;align-items:center;justify-content:center;gap:5px;padding:9px 4px;border:1.5px solid #dde3ea;border-radius:6px;cursor:pointer;font-size:0.72rem;color:#1a2e4a;background:white;text-align:center">
               <input type="radio" name="hc-loc" id="hc-loc-beyond" value="beyond" onchange="hcUpdateLabels();hcCalc()" style="accent-color:#0d2d5e"/> 25+ mi
@@ -319,8 +319,8 @@
         <!-- Result -->
         <div style="background:#f7f9fc;border-radius:8px;padding:14px;display:flex;flex-direction:column;gap:6px;border:1px solid #dde3ea">
           <div style="display:flex;justify-content:space-between;font-size:0.82rem">
-            <span style="color:#5a7090" id="hc-acts-label">1 act x $15.00</span>
-            <span style="font-weight:600;color:#0d2d5e" id="hc-acts-val">$15.00</span>
+            <span style="color:#5a7090" id="hc-acts-label">1 act x $10.00</span>
+            <span style="font-weight:600;color:#0d2d5e" id="hc-acts-val">$10.00</span>
           </div>
           <div style="display:flex;justify-content:space-between;font-size:0.82rem">
             <span style="color:#5a7090">Travel</span>
@@ -328,7 +328,7 @@
           </div>
           <div style="border-top:1.5px solid #dde3ea;padding-top:8px;margin-top:2px;display:flex;justify-content:space-between;align-items:center">
             <span style="font-size:0.7rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#0d2d5e">Estimated Total</span>
-            <span style="font-family:var(--font-display);font-size:1.6rem;font-weight:700;color:#0d2d5e" id="hc-total">$65.00</span>
+            <span style="font-family:var(--font-display);font-size:1.6rem;font-weight:700;color:#0d2d5e" id="hc-total">$60.00</span>
           </div>
         </div>
 
@@ -357,7 +357,7 @@
         <span class="eyebrow">What We Offer</span>
         <h2>Notarial Services</h2>
         <p class="mt-16">Whether you need an <strong>Acknowledgment</strong> on a deed or power of attorney, a <strong>Jurat</strong> for an affidavit or sworn statement, or a <strong>Copy Certification by Document Custodian</strong> for records that can't be certified directly — Kevin comes to you.</p>
-        <p class="mt-16">Available at your home, office, a coffee shop, or anywhere that works. All notarial acts are billed at a flat $15.00 per act.</p>
+        <p class="mt-16">Available at your home, office, a coffee shop, or anywhere that works. All notarial acts are billed at a flat $10.00 per act.</p>
         <p class="mt-16">The Client is responsible for knowing which notarial act their document requires. If unsure, consult the document's issuing authority or a licensed California attorney.</p>
         <a href="services.html" class="btn-ghost mt-32" style="display:inline-flex">View All Services &amp; Fees</a>
       </div>
@@ -422,17 +422,17 @@
   <div class="container">
     <div class="teaser-grid reverse scroll-reveal">
       <div style="background:var(--light-blue);border-radius:var(--radius-lg);padding:36px;border:1px solid var(--border)">
-        <div style="font-family:var(--font-display);font-size:3rem;font-weight:600;color:var(--navy)">$15</div>
+        <div style="font-family:var(--font-display);font-size:3rem;font-weight:600;color:var(--navy)">$10</div>
         <div style="font-size:0.78rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted);margin-bottom:20px">Per notarial act (flat rate)</div>
         <div style="font-family:var(--font-display);font-size:2.2rem;font-weight:600;color:var(--navy)">$50 · $65 · $65+</div>
         <div style="font-size:0.78rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted);margin-bottom:4px">Travel fee by distance</div>
-        <div style="font-size:0.82rem;color:var(--text-muted);margin-bottom:20px">Up to 15 mi &nbsp;·&nbsp; 15&ndash;25 mi &nbsp;·&nbsp; 25+ mi (plus mileage)</div>
+        <div style="font-size:0.82rem;color:var(--text-muted);margin-bottom:20px">Up to 20 mi &nbsp;·&nbsp; 20&ndash;25 mi &nbsp;·&nbsp; 25+ mi (plus mileage)</div>
         <div style="font-size:0.82rem;color:var(--text-soft);line-height:1.6">Urgent or emergency appointments (less than 2 hours' notice) are a flat $100 travel fee instead of the standard distance-based rate.</div>
       </div>
       <div>
         <span class="eyebrow">Transparent Pricing</span>
         <h2>No Surprises</h2>
-        <p class="mt-16">All notarial acts are billed at a flat rate of $15.00 per act. The travel fee is based on distance and starts at $50.00 — $65 for 15&ndash;25 miles, and $65 plus mileage at the IRS standard rate beyond 25 miles.</p>
+        <p class="mt-16">All notarial acts are billed at a flat rate of $10.00 per act. The travel fee is based on distance and starts at $50.00 — $65 for 20&ndash;25 miles, and $65 plus mileage at the IRS standard rate beyond 25 miles.</p>
         <p class="mt-16">Urgent or emergency appointments (less than 2 hours' notice) are a flat $100 travel fee, regardless of distance up to 25 miles, plus mileage beyond that.</p>
         <a href="services.html" class="btn-ghost mt-32" style="display:inline-flex">See Full Fee Schedule</a>
       </div>
@@ -522,7 +522,7 @@
         </div>
         <div class="faq-item">
           <button class="faq-q">How far will you travel? <span class="faq-icon">+</span></button>
-          <div class="faq-a">Travel fees are based on distance from Fremont: $50.00 up to 15 miles, $65.00 for 15&ndash;25 miles, and $65.00 plus mileage at the IRS standard rate beyond 25 miles. Urgent or emergency appointments (less than 2 hours' notice) are a flat $100.00 travel fee instead.</div>
+          <div class="faq-a">Travel fees are based on distance from Fremont: $50.00 up to 20 miles, $65.00 for 20&ndash;25 miles, and $65.00 plus mileage at the IRS standard rate beyond 25 miles. Urgent or emergency appointments (less than 2 hours' notice) are a flat $100.00 travel fee instead.</div>
         </div>
         <div class="faq-item">
           <button class="faq-q">What forms of payment are accepted? <span class="faq-icon">+</span></button>
@@ -662,13 +662,13 @@ function hcCalc() {
   inputEl.value = hcActs;
   var acts = hcActs;
 
-  // Acts fee — flat $15/act
-  var actsFee = acts * 15;
-  document.getElementById('hc-acts-label').textContent = acts + ' act' + (acts > 1 ? 's' : '') + ' x $15.00';
+  // Acts fee — flat $10/act
+  var actsFee = acts * 10;
+  document.getElementById('hc-acts-label').textContent = acts + ' act' + (acts > 1 ? 's' : '') + ' x $10.00';
   document.getElementById('hc-acts-val').textContent = hcFmt(actsFee);
 
   // Travel fee — distance-based, or $100 flat if urgent
-  // Standard: $50 (up to 15 mi), $65 (15–25 mi), $65 + mileage (25+ mi)
+  // Standard: $50 (up to 20 mi), $65 (20–25 mi), $65 + mileage (25+ mi)
   // Urgent:   $100 flat (under 25 mi), $100 + mileage (25+ mi)
   var travelFee, travelText;
   if (urgent) {
